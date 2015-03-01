@@ -4,18 +4,24 @@ using UnityEditor;
 
 public class WeaponEditor : EditorWindow 
 {
-	private static WeaponInfos m_Infos;
+	private WeaponInfos m_Infos;
+
+	private bool m_NeedLoad = true;
 
 	[MenuItem("WeaponMaster/Weapon Editor")]
 	private static void Init()
 	{
 		EditorWindow.GetWindow (typeof (WeaponEditor));
-		m_Infos = ScriptableObjectUtils.CreateAsset<WeaponInfos> (WeaponManager.m_AssetPath);
-		if(!m_Infos.m_IsInitialized) m_Infos.Setup();
 	}
 
 	private void OnGUI () 
 	{
+		if(m_NeedLoad /*|| m_Infos == null*/)
+		{
+			m_NeedLoad = false;
+			LoadValues();
+		}
+
 		if(GUILayout.Button("ADD"))
 		{
 			m_Infos.m_Prefixes.Add ("New Prefix" + (m_Infos.m_Prefixes.Count+1).ToString());
@@ -32,6 +38,15 @@ public class WeaponEditor : EditorWindow
 			}
 
 			EditorGUILayout.EndHorizontal();
+		}
+	}
+
+	private void LoadValues()
+	{
+		if(m_Infos == null)
+		{
+			m_Infos = ScriptableObjectUtils.CreateAsset<WeaponInfos> (WeaponManager.m_AssetPath);
+			if(!m_Infos.m_IsInitialized) m_Infos.Setup();
 		}
 	}
 }

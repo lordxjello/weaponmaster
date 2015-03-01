@@ -16,7 +16,7 @@ public static class ScriptableObjectUtils
 			AssetDatabase.Refresh();
 		}
 
-		EditorUtility.FocusProjectWindow ();
+		//EditorUtility.FocusProjectWindow ();
 		Selection.activeObject = asset;
 
 		return asset;
