@@ -9,15 +9,11 @@ public class WindowsManager : Singleton<WindowsManager>
 		base.Awake();
 	}
 
-	public GameObject CreateWindow(string i_WindowName, Camera i_Camera)
+	public Window CreateWindow(string i_WindowName, Transform i_Canvas)
 	{
-		Transform cameraCanvas = i_Camera.transform.GetChild(0);
-		GameObject windowGO = (GameObject)Instantiate(Resources.Load<GameObject>(/*"Assets/Resources*/"Windows/" + i_WindowName/* + ".prefab"*/), 
-		                                              i_Camera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, -i_Camera.transform.position.z)), 
-		                                              Quaternion.identity);
-		windowGO.transform.SetParent(cameraCanvas, false);
+		GameObject windowGO = (GameObject)Instantiate(Resources.Load<GameObject>("Windows/" + i_WindowName));
+		windowGO.transform.SetParent(i_Canvas, false);
 
-		return windowGO;
-
+		return windowGO.GetComponent<Window>();
 	}
 }
