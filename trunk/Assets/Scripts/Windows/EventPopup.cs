@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EventPopup : Window 
 {
-
+	public Text m_EventTitle;
 	// Use this for initialization
 	void Start () {
 	
@@ -18,5 +19,17 @@ public class EventPopup : Window
 	{
 		Close ();
 		AdventureProgression.Instance.OnEventCompleted();
+	}
+
+	public void Setup(AdventureProgression.AdventureEvent i_Event, bool i_AdventureCompleted)
+	{
+		if(i_AdventureCompleted)
+		{
+			m_EventTitle.text = "ADVENTURE COMPLETED!";
+		}
+		else
+		{
+			m_EventTitle.text = i_Event.ToString();
+		}
 	}
 }
