@@ -24,14 +24,14 @@ public class WeaponEditor : EditorWindow
 
 		if(GUILayout.Button("ADD"))
 		{
-			m_Infos.m_Prefixes.Add ("New Prefix" + (m_Infos.m_Prefixes.Count+1).ToString());
+			m_Infos.m_Prefixes.Add (new ItemBaseData("New Prefix" + (m_Infos.m_Prefixes.Count+1).ToString()));
 		}
 
 		for(int i = 0; i < m_Infos.m_Prefixes.Count; i++)
 		{
 			EditorGUILayout.BeginHorizontal(GUI.skin.box);
 
-			EditorGUILayout.LabelField(m_Infos.m_Prefixes[i]);
+			EditorGUILayout.LabelField(m_Infos.m_Prefixes[i].m_Name);
 			if(GUILayout.Button("X", GUILayout.Width (18f)))
 			{
 				m_Infos.m_Prefixes.RemoveAt(i);
