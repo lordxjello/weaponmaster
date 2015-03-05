@@ -55,7 +55,9 @@
      <Compile Include="Assets\Scripts\Manager\RefManager.cs" />
      <Compile Include="Assets\Scripts\Manager\SaveGameManager\SaveData.cs" />
      <Compile Include="Assets\Scripts\Manager\SaveGameManager\SaveGameManager.cs" />
-     <Compile Include="Assets\Scripts\Manager\ToolTipManager.cs" />
+     <Compile Include="Assets\Scripts\Manager\ToolTipManager\ToolTipDisplay\AdventureDisplay.cs" />
+     <Compile Include="Assets\Scripts\Manager\ToolTipManager\ToolTipDisplay\ToolTipDisplay.cs" />
+     <Compile Include="Assets\Scripts\Manager\ToolTipManager\ToolTipManager.cs" />
      <Compile Include="Assets\Scripts\Manager\WeaponManager\WeaponInfos.cs" />
      <Compile Include="Assets\Scripts\Manager\WeaponManager\WeaponManager.cs" />
      <Compile Include="Assets\Scripts\Manager\WindowsManager\Window.cs" />

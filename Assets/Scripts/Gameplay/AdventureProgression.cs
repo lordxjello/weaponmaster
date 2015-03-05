@@ -12,6 +12,17 @@ public class AdventureProgression : Singleton<AdventureProgression>
 		RandomEvent // -> Must be last (Like 'Count')
 	}
 
+	public class AdventureInfo : ToolTipManager.ToolTipInfo
+	{
+		public float m_CVValue = 0f;
+		public float m_LootValue = 0f;
+
+		public AdventureInfo() 
+		{
+			m_Tag = ToolTipDisplay.Tag.Adventure;
+		}
+	}
+
 	public delegate void AdventureEventCallback(AdventureEvent i_Event, bool i_AdventureCompleted);
 	public AdventureEventCallback m_OnEventReached;
 
