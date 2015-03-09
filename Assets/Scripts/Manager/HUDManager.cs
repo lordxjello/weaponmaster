@@ -23,6 +23,11 @@ public class HUDManager : Singleton<HUDManager>
 		int value = Mathf.FloorToInt(i_Value * 100);
 		m_ProgressionPercentage.text = value.ToString() + "%";
 	}
+
+	public void ShowPercentage(bool i_Enable)
+	{
+		m_ProgressionPercentage.gameObject.SetActive(i_Enable);
+	}
 	#endregion
 
 	#region RIGHT CAMERA HUD

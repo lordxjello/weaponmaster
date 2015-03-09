@@ -33,31 +33,31 @@ public static class SaveGameManager
 	#region WEB
 	public static void SaveWeb() 
 	{
-		foreach(KeyValuePair<string, SaveData.WebData> kvp in SaveData.WebDatas)
+		foreach(KeyValuePair<string, SaveData.WebData> kvp in SaveData.Instance.m_WebDatas)
 		{
-			switch(kvp.Value.m_Type)
-			{
-			case SaveData.WebType.Float:
-				PlayerPrefs.SetFloat(kvp.Key, (float)kvp.Value.m_FloatValue);
-				break;
-			case SaveData.WebType.Int:
-				PlayerPrefs.SetInt(kvp.Key, (int)kvp.Value.m_IntValue);
-				break;
-			case SaveData.WebType.String:
-				PlayerPrefs.SetString(kvp.Key, (string)kvp.Value.m_StringValue);
-				break;
-			}
+			SaveWebByData(kvp.Key, kvp.Value);
 		}
 	}   
 	
-	public static void LoadWeb() 
+	public static void SaveWebByData(string i_ID, SaveData.WebData i_Data) 
 	{
-		if(SaveData.Current == null)
+		switch(i_Data.m_Type)
 		{
-			SaveData.Current = new SaveData();
+		case SaveData.WebType.Float:
+			PlayerPrefs.SetFloat(i_ID, i_Data.m_FloatValue);
+			break;
+		case SaveData.WebType.Int:
+			PlayerPrefs.SetInt(i_ID, i_Data.m_IntValue);
+			break;
+		case SaveData.WebType.String:
+			PlayerPrefs.SetString(i_ID, i_Data.m_StringValue);
+			break;
 		}
-
-		foreach(KeyValuePair<string, SaveData.WebData> kvp in SaveData.WebDatas)
+	}
+	
+public static void LoadWeb() 
+	{
+		foreach(KeyValuePair<string, SaveData.WebData> kvp in SaveData.Instance.m_WebDatas)
 		{
 			switch(kvp.Value.m_Type)
 			{
@@ -68,10 +68,29 @@ public static class SaveGameManager
 				kvp.Value.m_IntValue = PlayerPrefs.GetInt(kvp.Key);
 				break;
 			case SaveData.WebType.String:
-				kvp.Value.m_StringValue = PlayerPrefs.GetString(kvp.Key);
+				string saveValue = PlayerPrefs.GetString(kvp.Key);
+				if(!string.IsNullOrEmpty(saveValue))
+				{
+					kvp.Value.m_StringValue = saveValue;
+				}
 				break;
 			}
 		}
+	}
+
+	public static void SetIntSaveKey(string i_ID, int i_Value)
+	{
+		SaveData.Instance.m_WebDatas.Add(i_ID, new SaveData.WebData(SaveData.WebType.Int, i_Value));
+	}
+
+	public static void SetFloatSaveKey(string i_ID, float i_Value)
+	{
+		SaveData.Instance.m_WebDatas.Add(i_ID, new SaveData.WebData(SaveData.WebType.Float, i_Value));
+	}
+
+	public static void SetStringSaveKey(string i_ID, string i_Value)
+	{
+		SaveData.Instance.m_WebDatas.Add(i_ID, new SaveData.WebData(SaveData.WebType.String, i_Value));
 	}
 	#endregion
 }

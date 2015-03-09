@@ -16,6 +16,11 @@ public class AdventureSelectionButton : Actor
 		get { return m_AdventureInfo; }
 	}
 
+	private void OnDisable()
+	{
+		ToolTipManager.Instance.ShowToolTip(false, m_AdventureInfo);
+	}
+
 	public void SetClickAction(UnityEngine.Events.UnityAction i_ClickEvent)
 	{
 		m_Button.onClick.AddListener(i_ClickEvent);

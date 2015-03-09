@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AdventureProgression : Singleton<AdventureProgression>
 {
 	public enum AdventureEvent
 	{
 		Enemies = 0,
-		Treasure,
-		Mystery,
+		Loot,
+		//Mystery,
 		RandomEvent // -> Must be last (Like 'Count')
 	}
 
@@ -27,6 +28,7 @@ public class AdventureProgression : Singleton<AdventureProgression>
 	public AdventureEventCallback m_OnEventReached;
 
 	[Header("CONTAINERS")]
+	public GameObject m_CharacterGO;
 	public Transform m_CharacterTransform;
 	public LineRenderer m_CharacterTrail;
 
@@ -39,16 +41,32 @@ public class AdventureProgression : Singleton<AdventureProgression>
 	[HideInInspector]
 	public bool m_AdventureSelected = false;
 
+	private bool m_EventEnemyStart = false;
+	public bool EventEnemyStart
+	{
+		get { return m_EventEnemyStart; }
+	}
+
 	#region ADVENTURE EVENT Vars
 	private Vector3 m_NextEventPosition;
 	private AdventureEvent m_NextEventType;
 	private bool m_AdventureCompleted;
 	#endregion
 
+	#region ENEMIES Vars
+	private List<Enemy> m_Enemies = new List<Enemy>();
+	public List<Enemy> Enemies
+	{
+		get { return m_Enemies; }
+	}
+	#endregion
+
 	#region MONO Methods
 	private void Start () 
 	{
 		Reset ();
+		m_CharacterGO.SetActive(false);
+		HUDManager.Instance.ShowPercentage(false);
 	}
 
 	private void Update () 
@@ -56,7 +74,7 @@ public class AdventureProgression : Singleton<AdventureProgression>
 		if(!m_StopProgression && m_AdventureSelected)
 		{			
 			m_CharacterTransform.position = Vector3.MoveTowards(m_CharacterTransform.position, m_NextEventPosition, Time.deltaTime * m_ProgressionSpeed);
-			m_CharacterTrail.SetPosition(1, new Vector3(m_CharacterTransform.position.x, m_CharacterTransform.position.y, m_CharacterTransform.position.z +0.01f));
+			m_CharacterTrail.SetPosition(1, m_CharacterTransform.position);
 			
 			if(Mathf.Abs (m_CharacterTransform.position.x - m_NextEventPosition.x) <= 0.001f)
 			{
@@ -74,8 +92,31 @@ public class AdventureProgression : Singleton<AdventureProgression>
 		m_StopProgression = true;
 
 		if(m_OnEventReached != null) m_OnEventReached(i_CurrentEvent, m_AdventureCompleted);
-		EventPopup popup = (EventPopup)WindowsManager.Instance.CreateWindow("EventPopup", RefManager.Instance.m_CanvasLeft);
-		popup.Setup(i_CurrentEvent, m_AdventureCompleted);
+
+		if(m_AdventureCompleted || i_CurrentEvent == AdventureEvent.Loot)
+		{
+			EventLootPopup lootPopup = (EventLootPopup)WindowsManager.Instance.EnableWindow(WindowsManager.ReusableWindowName.EventLootPopup);
+			lootPopup.Setup(i_CurrentEvent, m_AdventureCompleted);
+		}
+		else
+		{
+			switch(i_CurrentEvent)
+			{
+			case AdventureEvent.Enemies:
+				EventEnemiesPopup EnemiesPopup = (EventEnemiesPopup)WindowsManager.Instance.EnableWindow(WindowsManager.ReusableWindowName.EventEnemiesPopup);
+				EnemiesPopup.Setup();
+				m_EventEnemyStart = true;
+				break;
+			}
+		}
+	}
+
+	private void OnEnemiesCleared()
+	{
+		m_EventEnemyStart = false;
+		m_StopProgression = false;
+		EventEnemiesPopup.Instance.Close();
+		SetNextEvent(GetDistancePercentage(0.02f), GetDistancePercentage(0.15f));
 	}
 
 	private float GetDistancePercentage(float i_Percentage)
@@ -95,26 +136,34 @@ public class AdventureProgression : Singleton<AdventureProgression>
 
 	private Vector3 GetProgressionStart()
 	{
-		return RefManager.Instance.m_CameraTop.ViewportToWorldPoint(new Vector3(0.05f, 0.5f, -RefManager.Instance.m_CameraTop.transform.position.z));
+		return RefManager.Instance.m_CameraAll.ViewportToWorldPoint(new Vector3(0.05f, 0.9f, -RefManager.Instance.m_CameraAll.transform.position.z));
 	}
 
 	private Vector3 GetProgressionEnd()
 	{
-		return RefManager.Instance.m_CameraTop.ViewportToWorldPoint(new Vector3(0.95f, 0.5f, -RefManager.Instance.m_CameraTop.transform.position.z));
+		return RefManager.Instance.m_CameraAll.ViewportToWorldPoint(new Vector3(0.95f, 0.9f, -RefManager.Instance.m_CameraAll.transform.position.z));
 	}
 	#endregion
 
 	#region PUBLIC Methods
+	// EVENTS
+	public void OnAdventureSelected(AdventureInfo i_Info)
+	{
+		m_AdventureSelected = true;
+	}
+
 	public void OnEventCompleted()
 	{
 		if(m_AdventureCompleted)
 		{
 			AdventureSelectionPopup.Instance.Setup();
+			m_CharacterGO.SetActive(false);
+			HUDManager.Instance.ShowPercentage(false);
 		}
 		else
 		{
 			m_StopProgression = false;
-			SetNextEvent(1f, 5f);
+			SetNextEvent(GetDistancePercentage(0.02f), GetDistancePercentage(0.15f));
 		}
 	}
 
@@ -138,18 +187,37 @@ public class AdventureProgression : Singleton<AdventureProgression>
 		}
 	}
 
+	//ENEMIES
+	public void RegisterEnemy(Enemy i_Enemy)
+	{
+		m_Enemies.Add (i_Enemy);
+	}
+
+	public void UnregisterEnemy(Enemy i_Enemy)
+	{
+		m_Enemies.Remove (i_Enemy);
+
+		if(m_Enemies.Count == 0)
+		{
+			OnEnemiesCleared();
+		}
+	}
+	// UTILS
 	public void Reset()
 	{
 		m_StopProgression = false;
 		m_AdventureSelected = false;
 		m_AdventureCompleted = false;
 
+		m_CharacterGO.SetActive(true);
+		HUDManager.Instance.ShowPercentage(true);
 		m_CharacterTransform.position = GetProgressionStart();
 		
 		m_CharacterTrail.SetVertexCount(2);
 		m_CharacterTrail.SetPosition(0, m_CharacterTransform.position);
-
-		SetNextEvent(GetDistancePercentage(0.5f), GetDistancePercentage(0.5f));
+		m_CharacterTrail.SetPosition(1, m_CharacterTransform.position);
+		
+		SetNextEvent(GetDistancePercentage(0.02f), GetDistancePercentage(0.15f));
 	}
 	#endregion
 }

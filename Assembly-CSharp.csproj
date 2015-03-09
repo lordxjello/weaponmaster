@@ -50,6 +50,10 @@
      <Compile Include="Assets\Scripts\Core\Singleton.cs" />
      <Compile Include="Assets\Scripts\Gameplay\AdventureProgression.cs" />
      <Compile Include="Assets\Scripts\Gameplay\AdventureSelectionButton.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Character\CharacterEvent.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Character\CharacterManager.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\GeneralStats.cs" />
      <Compile Include="Assets\Scripts\Manager\HUDManager.cs" />
      <Compile Include="Assets\Scripts\Manager\LocationManager.cs" />
      <Compile Include="Assets\Scripts\Manager\RefManager.cs" />
@@ -62,8 +66,12 @@
      <Compile Include="Assets\Scripts\Manager\WeaponManager\WeaponManager.cs" />
      <Compile Include="Assets\Scripts\Manager\WindowsManager\Window.cs" />
      <Compile Include="Assets\Scripts\Manager\WindowsManager\WindowsManager.cs" />
+     <Compile Include="Assets\Scripts\Utils\SortingLayer.cs" />
+     <Compile Include="Assets\Scripts\Utils\SortingLayerModifier.cs" />
      <Compile Include="Assets\Scripts\Windows\AdventureSelectionPopup.cs" />
-     <Compile Include="Assets\Scripts\Windows\EventPopup.cs" />
+     <Compile Include="Assets\Scripts\Windows\EventEnemiesPopup.cs" />
+     <Compile Include="Assets\Scripts\Windows\EventLootPopup.cs" />
+     <Compile Include="Assets\Scripts\Windows\MenuPopup.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity4.6/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.2/UnityEngine.UI.dll</HintPath>
  </Reference>

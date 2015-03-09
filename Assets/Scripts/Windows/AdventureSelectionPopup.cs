@@ -15,6 +15,13 @@ public class AdventureSelectionPopup : Window
 	public Transform m_ButtonsContainer;
 	public GameObject m_AdventureSelectionButton;
 
+	public Text m_TimerText;
+	public float m_TimeAutoSelect = 10f;
+	public Text m_DebugText;
+
+	private float m_Timer;
+	private bool m_AdventureSelected = false;
+
 	private List<AdventureSelectionButton> m_AdventureSelectionButtons;	
 	protected override void Awake () 
 	{
@@ -24,19 +31,36 @@ public class AdventureSelectionPopup : Window
 		AdventureProgression.Instance.m_AdventureSelected = false;
 		CreateButtons ();
 		Setup ();
-
-		SaveGameManager.LoadWeb();
 	}
 
-	protected override void Close ()
+	private void OnEnable()
 	{
-		Show (false);
+		m_AdventureSelected = false;
+		m_Timer = m_TimeAutoSelect;
+		m_TimerText.text = Mathf.RoundToInt(m_Timer).ToString("F1");
+		m_DebugText.text = CharacterManager.Instance.HP.ToString();
+	}
+
+	public override void Close ()
+	{
 		AdventureProgression.Instance.Reset();
-		AdventureProgression.Instance.m_AdventureSelected = true;
+		Show (false);
 	}
 
 	private void Update () 
 	{
+		if(m_Timer > 0f)
+		{
+			m_Timer -= Time.deltaTime;
+			m_TimerText.text = Mathf.CeilToInt(m_Timer).ToString("00");
+		}
+		else if (!m_AdventureSelected)
+		{
+			m_Timer = 0f;
+			m_TimerText.text = "";
+			int randomAdventure = Random.Range(0, m_NbOfAdventures);
+			OnClick_Accept(m_AdventureSelectionButtons[randomAdventure]);
+		}
 	}
 
 	private void CreateButtons()
@@ -70,10 +94,14 @@ public class AdventureSelectionPopup : Window
 	
 	public void OnClick_Accept(AdventureSelectionButton i_Button)
 	{
-		SaveData.Current.CharacterCV = 50f;
-		SaveGameManager.SaveWeb();
+		if(!m_AdventureSelected)
+		{
+			m_AdventureSelected = true;
+			CharacterManager.Instance.HP = 100;
 
-		Close ();
+			Close ();
+			AdventureProgression.Instance.OnAdventureSelected(i_Button.AdventureInfo);
+		}
 	}
 
 }
