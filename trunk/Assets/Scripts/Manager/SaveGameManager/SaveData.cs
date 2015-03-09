@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class SaveData
+public class SaveData : Singleton<SaveData>
 {
-	public static SaveData Current;
-
 	public enum WebType
 	{
 		Int = 0,
@@ -14,32 +12,50 @@ public class SaveData
 		String
 	}
 
+	public enum SaveKey
+	{
+		HP = 0,
+		MP,
+		Attack,
+		Defense,
+		AttackSpeed,
+		MoveSpeed,
+
+		Count
+	}
+
 	public class WebData
 	{
 		public WebType	m_Type;
-		public float 	m_FloatValue;
 		public int 		m_IntValue;
+		public float 	m_FloatValue;
 		public string 	m_StringValue;
 
-		public WebData(WebType i_Type)
+		public WebData(WebType i_Type, int i_Value)
 		{
 			m_Type = i_Type;
+			m_IntValue = i_Value;
+		}
+
+		public WebData(WebType i_Type, float i_Value)
+		{
+			m_Type = i_Type;
+			m_FloatValue = i_Value;
+		}
+
+		public WebData(WebType i_Type, string i_Value)
+		{
+			m_Type = i_Type;
+			m_StringValue = i_Value;
 		}
 	}
 
-	[HideInInspector]
-	public static Dictionary<string, WebData> WebDatas;
+	public static int SaveSlots = 3;
+	public int m_SaveIndex = 0;
+	public Dictionary<string, WebData> m_WebDatas = new Dictionary<string, WebData>();
 
-	public float CharacterCV
+	private void Start()
 	{
-		get { return WebDatas["CharacterCV"].m_FloatValue; }
-		set { WebDatas["CharacterCV"].m_FloatValue = value; }
-	}
-
-
-	public SaveData()
-	{
-		WebDatas = new Dictionary<string, WebData>();
-		WebDatas.Add ("CharacterCV", new WebData(WebType.Float));
+		SaveGameManager.LoadWeb();
 	}
 }

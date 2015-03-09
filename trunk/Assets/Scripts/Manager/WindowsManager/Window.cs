@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Window : Actor
 {
+	public bool m_IsReusable = false;
+
 	void Start () {
 	
 	}
@@ -12,8 +14,15 @@ public class Window : Actor
 	
 	}
 
-	protected virtual void Close()
+	public virtual void Close()
 	{
-		Destroy(gameObject);
+		if(m_IsReusable)
+		{
+			aGameObject.SetActive(false);
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 }

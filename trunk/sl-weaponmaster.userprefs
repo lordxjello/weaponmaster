@@ -1,26 +1,25 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Manager\ToolTipManager\ToolTipDisplay.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Gameplay\AdventureSelectionButton.cs">
     <Files>
-      <File FileName="Assets\Scripts\Manager\SaveGameManager\SaveGameManager.cs" Line="65" Column="1" />
-      <File FileName="Assets\Scripts\Windows\AdventureSelectionPopup.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Gameplay\AdventureSelectionButton.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Manager\WeaponManager\WeaponInfos.cs" Line="47" Column="39" />
-      <File FileName="Assets\Scripts\Gameplay\AdventureProgression.cs" Line="22" Column="41" />
-      <File FileName="Assets\Scripts\Editor\Weapon\WeaponEditor.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Manager\ToolTipManager\ToolTipManager.cs" Line="55" Column="49" />
-      <File FileName="Assets\Scripts\Manager\ToolTipManager\ToolTipDisplay.cs" Line="26" Column="2" />
+      <File FileName="Assets\Scripts\Editor\Utils\ProjectUtils.cs" Line="66" Column="5" />
+      <File FileName="Assets\Scripts\Windows\AdventureSelectionPopup.cs" Line="46" Column="41" />
+      <File FileName="Assets\Scripts\Gameplay\Character\CharacterManager.cs" Line="39" Column="4" />
+      <File FileName="Assets\Scripts\Manager\SaveGameManager\SaveGameManager.cs" Line="72" Column="1" />
+      <File FileName="Assets\Scripts\Manager\SaveGameManager\SaveData.cs" Line="59" Column="23" />
+      <File FileName="Assets\Scripts\Gameplay\GeneralStats.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Gameplay\AdventureProgression.cs" Line="78" Column="4" />
+      <File FileName="Assets\Scripts\Windows\EventEnemiesPopup.cs" Line="64" Column="1" />
+      <File FileName="Assets\Scripts\Gameplay\Character\CharacterEvent.cs" Line="33" Column="3" />
+      <File FileName="Assets\Scripts\Gameplay\Enemy.cs" Line="43" Column="42" />
+      <File FileName="Assets\Scripts\Gameplay\AdventureSelectionButton.cs" Line="21" Column="34" />
+      <File FileName="Assets\Scripts\Windows\EventLootPopup.cs" Line="25" Column="1" />
+      <File FileName="Assets\Scripts\Manager\ToolTipManager\ToolTipManager.cs" Line="74" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Editor\WeaponEditor.cs" line="30" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Editor\WeaponEditor.cs" line="19" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Editor\WeaponEditor.cs" line="46" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Utils\ScriptableObjectUtils.cs" line="8" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Manager\WindowsManager.cs" line="15" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Manager\ToolTipManager.cs" line="23" />
-      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Manager\ToolTipManager.cs" line="54" />
+      <Breakpoint file="C:\Projects\sl-weaponmaster\Assets\Scripts\Gameplay\AdventureSelectionButton.cs" line="49" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -19,6 +19,7 @@ public class ToolTipManager : Singleton<ToolTipManager>
 	private RectTransform m_ToolTipTransform;
 	//private Vector2 m_ToolTipPosition;
 	private Vector3 m_ToolTipPosition;
+	private ToolTipInfo m_CurrentToolTipInfo = new ToolTipInfo();
 
 	private Dictionary<ToolTipDisplay.Tag, ToolTipDisplay> m_ToolTipsDisplay;
 
@@ -37,12 +38,16 @@ public class ToolTipManager : Singleton<ToolTipManager>
 
 	void Update () 
 	{
+	}
+
+	private void LateUpdate()
+	{
 		if(m_ShowToolTip)
 		{
 			m_ToolTipPosition = RefManager.Instance.m_CameraAll.ScreenToWorldPoint(Input.mousePosition);
 			m_ToolTipPosition.z = m_ToolTipTransform.position.z;
 			m_ToolTipTransform.position = m_ToolTipPosition;
-
+			
 			if(Input.mousePosition.y >= Screen.height/2f)
 			{
 				m_ToolTipPosition = m_ToolTipTransform.anchoredPosition;
@@ -62,8 +67,15 @@ public class ToolTipManager : Singleton<ToolTipManager>
 
 	public void ShowToolTip(bool i_Enable, ToolTipInfo i_Info = null)
 	{
+		if(!i_Enable && i_Info != null && i_Info != m_CurrentToolTipInfo)
+		{
+			return;
+		}
+
 		m_ShowToolTip = i_Enable;
 		m_ToolTipGO.SetActive(i_Enable);
+
+		m_CurrentToolTipInfo = i_Info;
 
 		if(i_Enable && i_Info != null)
 		{

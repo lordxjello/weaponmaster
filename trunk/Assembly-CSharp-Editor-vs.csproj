@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Editor\Utils\ProjectUtils.cs" />
      <Compile Include="Assets\Scripts\Editor\Utils\ScriptableObjectUtils.cs" />
      <Compile Include="Assets\Scripts\Editor\Weapon\WeaponEditor.cs" />
  <Reference Include="UnityEngine.UI">

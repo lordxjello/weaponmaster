@@ -5,27 +5,24 @@ using System.Collections;
 public class RefManager : Singleton<RefManager> 
 {
 	[Header("CAMERAS")]
-	public Camera m_CameraTop;
-	public Camera m_CameraRight;
-	public Camera m_CameraLeft;
 	public Camera m_CameraAll;
 
 	[Header("CANVAS")]
-	public Transform m_CanvasTop;
-	public Transform m_CanvasRight;
-	public Transform m_CanvasLeft;
 	public Transform m_CanvasAll;
+	public Transform m_CanvasTop;
+	public Transform m_CanvasLeft;
+	public Transform m_CanvasRight;
 
 	protected override void Awake()
 	{
 		base.Awake();
 	}
 	
-	void Start () {
-		
+	void Start () 
+	{
 	}
 
-	void Update () {
-		
+	void Update () 
+	{
 	}
 }
