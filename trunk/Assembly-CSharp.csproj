@@ -54,7 +54,9 @@
      <Compile Include="Assets\Scripts\Gameplay\Character\CharacterManager.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Enemy.cs" />
      <Compile Include="Assets\Scripts\Gameplay\GeneralStats.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\SubMenu.cs" />
      <Compile Include="Assets\Scripts\Manager\HUDManager.cs" />
+     <Compile Include="Assets\Scripts\Manager\InventoryManager.cs" />
      <Compile Include="Assets\Scripts\Manager\LocationManager.cs" />
      <Compile Include="Assets\Scripts\Manager\RefManager.cs" />
      <Compile Include="Assets\Scripts\Manager\SaveGameManager\SaveData.cs" />
