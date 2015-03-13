@@ -12,8 +12,13 @@ public class ToolTipDisplay : Actor
 
 	public Tag m_DisplayTag;
 
+	protected override void Awake ()
+	{
+		base.Awake ();
+		ToolTipManager.Instance.RegisterToolTipInfo(this);
+	}
+
 	protected virtual void Start()
 	{
-		ToolTipManager.Instance.RegisterToolTipInfo(this);
 	}
 }
