@@ -3,22 +3,21 @@ using System.Collections;
 
 public class ToolTipDisplay : Actor
 {
-	public enum Tag
+	[HideInInspector]
+	public string m_Message;
+
+	public virtual void OnDisable()
 	{
-		Adventure = 0,
-		Weapon,
-		Armor
+		ToolTipManager.Instance.ShowToolTip(false);
 	}
-
-	public Tag m_DisplayTag;
-
-	protected override void Awake ()
+	
+	public virtual void OnPointerEnter()
 	{
-		base.Awake ();
-		ToolTipManager.Instance.RegisterToolTipInfo(this);
+		ToolTipManager.Instance.ShowToolTip(true, m_Message);
 	}
-
-	protected virtual void Start()
+	
+	public virtual void OnPointerExit()
 	{
+		ToolTipManager.Instance.ShowToolTip(false);
 	}
 }

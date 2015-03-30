@@ -55,21 +55,10 @@ public class EventLootPopup : Window
 			m_TimerText.text = "";
 			m_Clicked = true;
 			Close ();
-			AdventureProgression.Instance.OnEventCompleted();
 		}
 	}
 
-	public void Setup(AdventureProgression.AdventureEvent i_Event, bool i_AdventureCompleted)
+	public void Setup()
 	{
-		m_Timer = m_TimeAutoSelect;
-
-		if(i_AdventureCompleted)
-		{
-			m_EventTitle.text = "ADVENTURE COMPLETED!";
-		}
-		else
-		{
-			m_EventTitle.text = i_Event.ToString();
-		}
 	}
 }

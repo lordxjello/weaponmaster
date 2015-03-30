@@ -38,9 +38,7 @@ public class Enemy : Actor
 	private void Kill()
 	{
 		m_IsAlive = false;
-		AdventureProgression.Instance.UnregisterEnemy(this);
 		aGameObject.SetActive(false);
-		CharacterEvent.Instance.OnEnemyDeath();
 	}
 
 	private void Update () 
@@ -59,7 +57,7 @@ public class Enemy : Actor
 
 	public void Setup()
 	{
-		AdventureProgression.Instance.RegisterEnemy(this);
+		//AdventureProgression.Instance.RegisterEnemy(this);
 		aGameObject.SetActive(true);
 		m_HPPercentage = 1f;
 		m_HPMeter.fillAmount = 1f;
