@@ -34,8 +34,9 @@ public class Property
 }
 
 [System.Serializable]
-public class ItemBaseData : ToolTipManager.ToolTipInfo
+public class ItemBaseData
 {
+	public string m_Name;
 	public WeaponManager.WeaponCategory m_Category;
 	public List<Property> m_Properties;
 	

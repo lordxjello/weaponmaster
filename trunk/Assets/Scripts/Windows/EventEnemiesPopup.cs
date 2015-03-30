@@ -46,7 +46,6 @@ public class EventEnemiesPopup : Window
 	public void OnClick_Accept()
 	{
 		Close ();
-		AdventureProgression.Instance.OnEventCompleted();
 	}
 
 	public void Setup()
@@ -60,7 +59,5 @@ public class EventEnemiesPopup : Window
 			m_Enemies[m_EnemiesToAppear[randomIndex]].Setup();
 			m_EnemiesToAppear.RemoveAt(randomIndex);
 		}
-
-		CharacterEvent.Instance.Setup ();
 	}
 }

@@ -23,17 +23,17 @@ public class Actor : MonoBehaviour
 	
 	public Renderer aRenderer
 	{
-		get{ return actorRenderer? actorRenderer: actorRenderer = renderer; }
+		get{ return actorRenderer? actorRenderer: actorRenderer = GetComponent<Renderer>(); }
 	}
 	
 	public Rigidbody aRigidbody
 	{
-		get{ return actorRigidbody? actorRigidbody: actorRigidbody = rigidbody; }
+		get{ return actorRigidbody? actorRigidbody: actorRigidbody = GetComponent<Rigidbody>(); }
 	}
 	
 	public Collider aCollider
 	{
-		get{ return actorCollider? actorCollider: actorCollider = collider; }
+		get{ return actorCollider? actorCollider: actorCollider = GetComponent<Collider>(); }
 	}
 	
 	protected virtual void Awake()
